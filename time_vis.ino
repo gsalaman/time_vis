@@ -118,13 +118,31 @@ void show_samples( void )
 }
 
 
+void show_samples_lines( void )
+{
+  int x;
+  int y;
+  int last_x=0;
+  int last_y=16;
+
+  matrix.fillScreen(0);
+  
+  for (x=0; x < SAMPLE_SIZE; x++)
+  {
+    y=map_sample(sample[x]);
+    matrix.drawLine(last_x,last_y,x,y,matrix.Color333(0,0,1));
+    last_x = x;
+    last_y = y;
+  }
+}
+
 void loop() 
 {
   read_gain();
   collect_samples();
-  show_samples();
+  show_samples_lines();
 
-  Serial.println(gain);
+  //Serial.println(gain);
   
   // Update display
   matrix.swapBuffers(true);
